@@ -91,14 +91,17 @@ public class CalculatorActivity extends AppCompatActivity {
         String actualDisplayText = activityCalculatorBinding.displayTv.getText().toString();
         if (actualDisplayText.length() == 1 && actualDisplayText.contains("0")) {
             activityCalculatorBinding.displayTv.setText("");
-            actualDisplayText = "";
         }
-        if (    activityCalculatorBinding.displayTv.getText().toString().contains("+") ||
+
+        if (    !activityCalculatorBinding.displayTv.getText().toString().contains(".") &&
+                (activityCalculatorBinding.displayTv.getText().toString().contains("+") ||
                 activityCalculatorBinding.displayTv.getText().toString().contains("-") ||
                 activityCalculatorBinding.displayTv.getText().toString().contains("*") ||
-                activityCalculatorBinding.displayTv.getText().toString().contains("/")) {
+                activityCalculatorBinding.displayTv.getText().toString().contains("/")) ) {
+            System.out.println(activityCalculatorBinding.displayTv.getText().toString());
             calculateResult();
         }
+
         actualDisplayText = activityCalculatorBinding.displayTv.getText().toString();
         activityCalculatorBinding.displayTv.setText(actualDisplayText.concat(display));
     }

@@ -102,32 +102,37 @@ public class AdvancedCalculatorActivity extends AppCompatActivity {
         String actualDisplayText = activityAdvancedCalculatorBinding.displayTv.getText().toString();
         if (actualDisplayText.length() == 1 && actualDisplayText.contains("0")) {
             activityAdvancedCalculatorBinding.displayTv.setText("");
-            actualDisplayText = "";
         }
-
+        if (    !activityAdvancedCalculatorBinding.displayTv.getText().toString().contains(".") &&
+                activityAdvancedCalculatorBinding.displayTv.getText().toString().contains("+") ||
+                activityAdvancedCalculatorBinding.displayTv.getText().toString().contains("-") ||
+                activityAdvancedCalculatorBinding.displayTv.getText().toString().contains("*") ||
+                activityAdvancedCalculatorBinding.displayTv.getText().toString().contains("/") ) {
+            calculateResult();
+        }
+        actualDisplayText = activityAdvancedCalculatorBinding.displayTv.getText().toString();
         activityAdvancedCalculatorBinding.displayTv.setText(actualDisplayText.concat(display));
     }
 
     private void calculateResult() {
         String actualDisplayText = activityAdvancedCalculatorBinding.displayTv.getText().toString();
         String[] operand = actualDisplayText.split("[\\s^*/+-]");
-        String firstOperand = operand[0];
-        String secondOperand = operand[1];
 
-        if (actualDisplayText.contains("+")) {
-            activityAdvancedCalculatorBinding.displayTv.setText(operation.addition(firstOperand, secondOperand));
-        }
-        else if (actualDisplayText.contains("-")) {
-            activityAdvancedCalculatorBinding.displayTv.setText(operation.subtraction(firstOperand, secondOperand));
-        }
-        else if (actualDisplayText.contains("*")) {
-            activityAdvancedCalculatorBinding.displayTv.setText(operation.multiplication(firstOperand, secondOperand));
-        }
-        else if (actualDisplayText.contains("/")) {
-            activityAdvancedCalculatorBinding.displayTv.setText(operation.division(firstOperand, secondOperand));
-        }
-        else if (actualDisplayText.contains("^")) {
-            activityAdvancedCalculatorBinding.displayTv.setText(operation.powerOf(firstOperand, secondOperand));
+        if(operand.length > 1) {
+            String firstOperand = operand[0];
+            String secondOperand = operand[1];
+
+            if (actualDisplayText.contains("+")) {
+                activityAdvancedCalculatorBinding.displayTv.setText(operation.addition(firstOperand, secondOperand));
+            } else if (actualDisplayText.contains("-")) {
+                activityAdvancedCalculatorBinding.displayTv.setText(operation.subtraction(firstOperand, secondOperand));
+            } else if (actualDisplayText.contains("*")) {
+                activityAdvancedCalculatorBinding.displayTv.setText(operation.multiplication(firstOperand, secondOperand));
+            } else if (actualDisplayText.contains("/")) {
+                activityAdvancedCalculatorBinding.displayTv.setText(operation.division(firstOperand, secondOperand));
+            } else if (actualDisplayText.contains("^")) {
+                activityAdvancedCalculatorBinding.displayTv.setText(operation.powerOf(firstOperand, secondOperand));
+            }
         }
     }
 
